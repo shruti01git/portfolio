@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     REPLACE EVERY INSTANCE OF "YOUR NAME" WITH YOUR ACTUAL NAME
+     Also update: email, LinkedIn URL, Behance URL, location
+     ============================================================ -->
+<title>YOUR NAME — UI/UX & Visual Designer</title>
+<meta name="description" content="UI/UX Designer and Visual Storyteller. Crafting digital experiences that combine design thinking with technical precision.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,600;9..144,1,300;9..144,1,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET ─── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font:inherit;cursor:pointer;border:none;background:none}
+ul{list-style:none}
+
+/* ─── TOKENS ─── */
+:root{
+  --bg:         #09090D;
+  --surface:    #111118;
+  --surface2:   #18181F;
+  --border:     rgba(255,255,255,0.07);
+  --border2:    rgba(255,255,255,0.13);
+  --text:       #F2EDE6;
+  --muted:      rgba(242,237,230,0.42);
+  --accent:     #FF4A2D;
+  --accent-dim: rgba(255,74,45,0.12);
+  --mint:       #52F5A0;
+  --mint-dim:   rgba(82,245,160,0.10);
+  --serif:      'Fraunces', Georgia, serif;
+  --sans:       'DM Sans', system-ui, sans-serif;
+  --ease:       cubic-bezier(0.22,1,0.36,1);
+}
+
+/* ─── BASE ─── */
+body{
+  font-family:var(--sans);
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+
+/* noise grain overlay */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  background-size:200px;
+  pointer-events:none;
+  z-index:9999;
+  opacity:0.6;
+}
+
+/* ─── UTILITIES ─── */
+.container{width:100%;max-width:1180px;margin:0 auto;padding:0 2rem}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.tag{
+  display:inline-block;
+  font-size:11px;
+  font-weight:500;
+  letter-spacing:0.04em;
+  text-transform:uppercase;
+  padding:4px 12px;
+  border:0.5px solid var(--border2);
+  border-radius:20px;
+  color:var(--muted);
+}
+.tag.accent{border-color:var(--accent);color:var(--accent)}
+.tag.mint{border-color:var(--mint);color:var(--mint)}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s var(--ease),transform 0.7s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ─── NAV ─── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 2.5rem;
+  border-bottom:0.5px solid transparent;
+  transition:border-color 0.3s,background 0.3s;
+}
+nav.scrolled{
+  background:rgba(9,9,13,0.85);
+  backdrop-filter:blur(20px);
+  border-color:var(--border);
+}
+.nav-logo{
+  font-family:var(--serif);
+  font-size:1.1rem;
+  font-weight:300;
+  letter-spacing:0.02em;
+}
+.nav-logo span{font-style:italic;color:var(--accent)}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{
+  font-size:13px;
+  font-weight:400;
+  color:var(--muted);
+  letter-spacing:0.02em;
+  transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  font-size:13px;
+  font-weight:500;
+  padding:8px 20px;
+  border:0.5px solid var(--border2);
+  border-radius:40px;
+  color:var(--text);
+  transition:all 0.2s;
+}
+.nav-cta:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ─── HERO ─── */
+#hero{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding-bottom:5rem;
+  padding-top:6rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 70% 20%, rgba(255,74,45,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(82,245,160,0.04) 0%, transparent 50%);
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size:60px 60px;
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 40%, black 0%, transparent 100%);
+}
+.hero-content{position:relative;z-index:1}
+.hero-label{
+  display:flex;align-items:center;gap:10px;
+  font-size:12px;font-weight:400;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:1.5rem;
+}
+.hero-label::before{
+  content:'';
+  display:block;width:32px;height:0.5px;
+  background:var(--muted);
+}
+.hero-name{
+  font-family:var(--serif);
+  font-size:clamp(4.5rem, 12vw, 10rem);
+  font-weight:300;
+  line-height:0.92;
+  letter-spacing:-0.02em;
+  margin-bottom:1rem;
+}
+.hero-name .italic{font-style:italic;color:var(--accent)}
+.hero-sub{
+  font-size:clamp(1rem,2vw,1.2rem);
+  font-weight:300;
+  color:var(--muted);
+  max-width:520px;
+  margin-bottom:2.5rem;
+  line-height:1.7;
+}
+.hero-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent);
+  color:#fff;
+  font-size:14px;font-weight:500;
+  padding:14px 28px;
+  border-radius:40px;
+  transition:transform 0.2s var(--ease),opacity 0.2s;
+  letter-spacing:0.01em;
+}
+.btn-primary:hover{opacity:0.88;transform:translateY(-1px)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:14px;font-weight:400;color:var(--muted);
+  padding:14px 20px;
+  border:0.5px solid var(--border2);border-radius:40px;
+  transition:all 0.2s;
+}
+.btn-ghost:hover{color:var(--text);border-color:var(--border2)}
+.arrow{display:inline-block;transition:transform 0.2s}
+.btn-primary:hover .arrow{transform:translateX(3px)}
+.hero-scroll{
+  position:absolute;bottom:2.5rem;right:2.5rem;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--muted);
+  animation:float 3s ease-in-out infinite;
+}
+.scroll-line{
+  width:0.5px;height:48px;
+  background:linear-gradient(to bottom, var(--muted), transparent);
+}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ─── MARQUEE ─── */
+.marquee-wrap{
+  border-top:0.5px solid var(--border);
+  border-bottom:0.5px solid var(--border);
+  overflow:hidden;padding:0.85rem 0;
+  margin:0;
+}
+.marquee-track{
+  display:flex;gap:3rem;width:max-content;
+  animation:marquee 18s linear infinite;
+}
+.marquee-item{
+  font-family:var(--serif);font-style:italic;
+  font-size:1rem;font-weight:300;
+  color:var(--muted);white-space:nowrap;
+  display:flex;align-items:center;gap:3rem;
+}
+.marquee-dot{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--accent);flex-shrink:0;
+}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ─── SECTION COMMON ─── */
+section{padding:7rem 0}
+.section-num{
+  font-family:var(--serif);font-style:italic;
+  font-size:clamp(5rem,10vw,8rem);
+  font-weight:300;
+  color:rgba(255,255,255,0.04);
+  line-height:1;
+  position:absolute;top:-1.5rem;left:-0.5rem;
+  pointer-events:none;
+  user-select:none;
+  letter-spacing:-0.03em;
+}
+.section-header{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+  margin-bottom:4rem;
+  padding-bottom:1.5rem;
+  border-bottom:0.5px solid var(--border);
+  position:relative;
+}
+.section-title{
+  font-family:var(--serif);
+  font-size:clamp(2rem,4vw,3rem);
+  font-weight:300;
+  letter-spacing:-0.01em;
+}
+.section-title .em{font-style:italic;color:var(--accent)}
+.section-link{
+  font-size:13px;color:var(--muted);
+  display:flex;align-items:center;gap:6px;
+  transition:color 0.2s;
+}
+.section-link:hover{color:var(--text)}
+
+/* ─── PROJECTS ─── */
+#work{padding-top:5rem}
+.projects-grid{display:grid;gap:1.5px;background:var(--border)}
+.project-card{
+  background:var(--bg);
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  min-height:380px;
+  overflow:hidden;
+  transition:background 0.3s;
+  cursor:pointer;
+  position:relative;
+}
+.project-card:hover{background:var(--surface)}
+.project-card.reverse{direction:rtl}
+.project-card.reverse>*{direction:ltr}
+.project-info{
+  padding:3rem 3rem;
+  display:flex;flex-direction:column;justify-content:space-between;
+  border-right:0.5px solid var(--border);
+}
+.project-card.reverse .project-info{border-right:none;border-left:0.5px solid var(--border)}
+.project-meta{margin-bottom:1rem}
+.project-num{
+  font-size:11px;font-weight:400;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);
+  margin-bottom:1rem;
+  display:flex;align-items:center;gap:8px;
+}
+.project-num::after{content:'';flex:1;height:0.5px;background:var(--border)}
+.project-title{
+  font-family:var(--serif);
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  font-weight:300;
+  letter-spacing:-0.01em;
+  margin-bottom:0.75rem;
+  line-height:1.15;
+}
+.project-type{font-size:13px;color:var(--muted);margin-bottom:1.5rem}
+.project-desc{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:2rem}
+.project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:2rem}
+.project-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:500;color:var(--text);
+  border-bottom:0.5px solid var(--border2);padding-bottom:4px;
+  transition:all 0.2s;width:fit-content;
+}
+.project-cta:hover{color:var(--accent);border-color:var(--accent)}
+.project-visual{
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+/* project visual backgrounds */
+.vis-1{background:linear-gradient(135deg,#13082A 0%,#1A0E3D 50%,#0F1929 100%)}
+.vis-2{background:linear-gradient(135deg,#001A14 0%,#012A1F 50%,#001F2A 100%)}
+.vis-3{background:linear-gradient(135deg,#1A0D00 0%,#2A1500 50%,#1A0A00 100%)}
+.vis-4{background:linear-gradient(135deg,#0A0A1A 0%,#12122A 50%,#1A0A1A 100%)}
+
+.vis-label{
+  position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;
+  font-size:11px;letter-spacing:0.08em;text-transform:uppercase;
+  color:rgba(255,255,255,0.25);
+}
+
+/* abstract visual art for each project */
+.art{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+
+/* ─── ABOUT ─── */
+.about-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6rem;
+  align-items:center;
+}
+.about-visual{
+  position:relative;
+  aspect-ratio:4/5;
+  border:0.5px solid var(--border);
+  border-radius:4px;
+  overflow:hidden;
+  background:var(--surface);
+  display:flex;align-items:flex-end;
+}
+.about-art{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,74,45,0.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(82,245,160,0.08) 0%, transparent 40%);
+}
+.about-initials{
+  font-family:var(--serif);
+  font-size:clamp(8rem,18vw,14rem);
+  font-weight:300;
+  font-style:italic;
+  color:rgba(255,255,255,0.04);
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  letter-spacing:-0.05em;
+  white-space:nowrap;
+  pointer-events:none;
+}
+.about-badge{
+  position:relative;z-index:1;
+  margin:2rem;
+  background:rgba(255,74,45,0.08);
+  border:0.5px solid rgba(255,74,45,0.3);
+  border-radius:4px;
+  padding:1rem 1.25rem;
+}
+.about-badge-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px}
+.about-badge-val{font-size:14px;font-weight:400;color:var(--text)}
+.about-text h2{
+  font-family:var(--serif);
+  font-size:clamp(1.8rem,3.5vw,2.6rem);
+  font-weight:300;
+  letter-spacing:-0.01em;
+  line-height:1.2;
+  margin-bottom:1.5rem;
+}
+.about-text h2 em{font-style:italic;color:var(--accent)}
+.about-text p{color:var(--muted);line-height:1.8;margin-bottom:1rem;font-size:15px}
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--border);margin-top:2.5rem;
+  border:0.5px solid var(--border);
+}
+.stat{
+  background:var(--bg);
+  padding:1.25rem;
+}
+.stat-num{
+  font-family:var(--serif);font-size:2rem;font-weight:300;
+  color:var(--text);line-height:1;margin-bottom:4px;
+}
+.stat-num span{font-style:italic;color:var(--accent)}
+.stat-label{font-size:12px;color:var(--muted);font-weight:400}
+
+/* ─── SKILLS ─── */
+.skills-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;
+  background:var(--border);
+  border:0.5px solid var(--border);
+}
+.skill-block{
+  background:var(--bg);
+  padding:2rem;
+  transition:background 0.3s;
+}
+.skill-block:hover{background:var(--surface)}
+.skill-icon{
+  width:40px;height:40px;border-radius:8px;
+  background:var(--surface2);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;
+  font-size:1.2rem;
+}
+.skill-label{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem}
+.skill-name{font-size:1.1rem;font-weight:400;margin-bottom:0.75rem}
+.skill-items{font-size:13px;color:var(--muted);line-height:1.8}
+
+/* ─── PROCESS ─── */
+.process-row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:0.5px solid var(--border);
+  margin-top:3rem;
+}
+.process-step{
+  background:var(--bg);
+  padding:2rem;
+  position:relative;
+}
+.process-step-num{
+  font-family:var(--serif);font-style:italic;
+  font-size:3.5rem;font-weight:300;
+  color:rgba(255,255,255,0.05);
+  line-height:1;margin-bottom:1rem;
+}
+.process-step-title{font-size:14px;font-weight:500;margin-bottom:0.5rem}
+.process-step-desc{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ─── CONTACT ─── */
+#contact{
+  padding:6rem 0;
+  text-align:center;
+  border-top:0.5px solid var(--border);
+}
+.contact-eyebrow{
+  font-size:12px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1.5rem;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.contact-eyebrow::before,.contact-eyebrow::after{
+  content:'';display:block;width:24px;height:0.5px;background:var(--muted);
+}
+.contact-heading{
+  font-family:var(--serif);
+  font-size:clamp(2.5rem,6vw,5rem);
+  font-weight:300;letter-spacing:-0.02em;
+  margin-bottom:0.5rem;
+}
+.contact-heading em{font-style:italic;color:var(--accent)}
+.contact-sub{color:var(--muted);margin-bottom:2.5rem;font-size:15px}
+.contact-links{
+  display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;
+}
+.contact-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:400;
+  padding:12px 24px;
+  border:0.5px solid var(--border2);border-radius:40px;
+  color:var(--muted);
+  transition:all 0.2s;
+}
+.contact-link:hover{color:var(--text);border-color:var(--border2)}
+.contact-link.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.contact-link.primary:hover{opacity:0.88}
+
+/* ─── FOOTER ─── */
+footer{
+  padding:1.5rem 2.5rem;
+  border-top:0.5px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-copy{font-size:12px;color:var(--muted)}
+.footer-nav{display:flex;gap:1.5rem}
+.footer-nav a{font-size:12px;color:var(--muted);transition:color 0.2s}
+.footer-nav a:hover{color:var(--text)}
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem}
+  .nav-links{display:none}
+  .project-card{grid-template-columns:1fr;min-height:auto}
+  .project-card.reverse{direction:ltr}
+  .project-info{border-right:none!important;border-left:none!important;border-bottom:0.5px solid var(--border)}
+  .project-visual{aspect-ratio:16/9}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .process-row{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .container{padding:0 1.25rem}
+  section{padding:4rem 0}
+  .process-row{grid-template-columns:1fr}
+  .hero-name{font-size:clamp(3.5rem,16vw,5rem)}
+  footer{padding:1.25rem}
+}
+
+/* ─── SVG ART ANIMATIONS ─── */
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes pulse-ring{0%,100%{opacity:0.3;r:30}50%{opacity:0.6;r:35}}
+@keyframes drift{0%,100%{transform:translateY(0) translateX(0)}33%{transform:translateY(-12px) translateX(6px)}66%{transform:translateY(8px) translateX(-8px)}}
+</style>
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav id="nav">
+  <a href="#hero" class="nav-logo">YN<span>.</span></a><!-- Replace YN with your initials -->
+  <div class="nav-links">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+    <a href="https://behance.net/YOURUSERNAME" target="_blank" class="nav-cta">Behance ↗</a><!-- Replace YOURUSERNAME -->
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container hero-content">
+    <div class="hero-label">UI/UX & Visual Designer — Pune, India</div>
+    <h1 class="hero-name">
+      YOUR<br>
+      <span class="italic">NAME</span>
+    </h1>
+    <p class="hero-sub">Designing digital experiences that feel as good as they work — where design thinking meets technical precision.</p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">View Selected Work <span class="arrow">→</span></a>
+      <a href="#contact" class="btn-ghost">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-wrap" aria-hidden="true">
+  <div class="marquee-track">
+    <!-- two identical sets for seamless loop -->
+    <span class="marquee-item">UI/UX Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Visual Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Branding & Identity <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Product Thinking <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Figma <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Design Systems <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Wireframing <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Typography <span class="marquee-dot"></span></span>
+    <span class="marquee-item">UI/UX Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Visual Design <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Branding & Identity <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Product Thinking <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Figma <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Design Systems <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Wireframing <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Typography <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- ─── WORK ─── -->
+<section id="work">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Selected <em>Work</em></h2>
+      <a href="https://behance.net/YOURUSERNAME" target="_blank" class="section-link">View on Behance →</a>
+    </div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- PROJECT 1 — PARABOLA9 -->
+    <article class="project-card reveal" onclick="window.open('https://behance.net/YOURUSERNAME','_blank')">
+      <div class="project-info">
+        <div class="project-meta">
+          <div class="project-num">01 <span></span></div>
+          <h3 class="project-title">Parabola9 App — Wireframes & UI Redesign</h3>
+          <p class="project-type">8-month AI internship · Real client work</p>
+          <p class="project-desc">Led end-to-end wireframing of an AI-powered application, architecting the full component system using shadcn/ui. Redesigned key app screens with a focus on usability, visual hierarchy, and consistent design language.</p>
+          <div class="project-tags">
+            <span class="tag accent">Internship</span>
+            <span class="tag">UX/UI</span>
+            <span class="tag">Wireframing</span>
+            <span class="tag">Design Systems</span>
+            <span class="tag">Figma</span>
+          </div>
+        </div>
+        <a href="https://behance.net/YOURUSERNAME" target="_blank" class="project-cta">View case study →</a>
+      </div>
+      <div class="project-visual vis-1">
+        <svg class="art" viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- abstract wireframe grid -->
+          <rect x="60" y="50" width="280" height="40" rx="6" fill="rgba(139,92,246,0.12)" stroke="rgba(139,92,246,0.25)" stroke-width="0.5"/>
+          <rect x="60" y="106" width="130" height="100" rx="6" fill="rgba(139,92,246,0.07)" stroke="rgba(139,92,246,0.2)" stroke-width="0.5"/>
+          <rect x="204" y="106" width="136" height="45" rx="6" fill="rgba(139,92,246,0.07)" stroke="rgba(139,92,246,0.2)" stroke-width="0.5"/>
+          <rect x="204" y="161" width="136" height="45" rx="6" fill="rgba(139,92,246,0.07)" stroke="rgba(139,92,246,0.2)" stroke-width="0.5"/>
+          <rect x="60" y="220" width="280" height="28" rx="6" fill="rgba(139,92,246,0.05)" stroke="rgba(139,92,246,0.15)" stroke-width="0.5"/>
+          <rect x="60" y="262" width="130" height="60" rx="6" fill="rgba(139,92,246,0.05)" stroke="rgba(139,92,246,0.15)" stroke-width="0.5"/>
+          <rect x="204" y="262" width="60" height="60" rx="6" fill="rgba(139,92,246,0.05)" stroke="rgba(139,92,246,0.15)" stroke-width="0.5"/>
+          <rect x="276" y="262" width="64" height="60" rx="6" fill="rgba(255,74,45,0.1)" stroke="rgba(255,74,45,0.3)" stroke-width="0.5"/>
+          <!-- floating accent dots -->
+          <circle cx="340" cy="60" r="3" fill="rgba(139,92,246,0.6)"/>
+          <circle cx="350" cy="60" r="3" fill="rgba(139,92,246,0.3)"/>
+          <circle cx="360" cy="60" r="3" fill="rgba(139,92,246,0.15)"/>
+          <!-- lines inside boxes (text placeholder) -->
+          <line x1="76" y1="134" x2="174" y2="134" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+          <line x1="76" y1="146" x2="155" y2="146" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+          <line x1="76" y1="158" x2="165" y2="158" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+          <line x1="76" y1="170" x2="148" y2="170" stroke="rgba(255,255,255,0.08)" stroke-width="0.5"/>
+          <text x="76" y="68" fill="rgba(139,92,246,0.5)" font-size="10" font-family="'DM Sans',sans-serif" font-weight="500" letter-spacing="0.1em">PARABOLA9 · AI PLATFORM</text>
+        </svg>
+        <div class="vis-label">Wireframe architecture — shadcn/ui component system</div>
+      </div>
+    </article>
+
+    <!-- PROJECT 2 — VEHICLE DASHBOARD (reversed) -->
+    <article class="project-card reverse reveal" onclick="window.open('https://behance.net/YOURUSERNAME','_blank')">
+      <div class="project-info">
+        <div class="project-meta">
+          <div class="project-num">02 <span></span></div>
+          <h3 class="project-title">Visual AI Dashboard — Vehicle Intelligence</h3>
+          <p class="project-type">Academic project · UX/UI case study</p>
+          <p class="project-desc">Designed and developed a real-time vehicle tracking dashboard using modern UI components, data visualization, and strong UX principles. Built reusable card systems, alert states, and analytics views for operator decision-making.</p>
+          <div class="project-tags">
+            <span class="tag mint">AI/ML Product</span>
+            <span class="tag">Dashboard Design</span>
+            <span class="tag">Data Viz</span>
+            <span class="tag">shadcn/ui</span>
+          </div>
+        </div>
+        <a href="https://behance.net/YOURUSERNAME" target="_blank" class="project-cta">View case study →</a>
+      </div>
+      <div class="project-visual vis-2">
+        <svg class="art" viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- dashboard art -->
+          <rect x="40" y="40" width="320" height="60" rx="6" fill="rgba(29,158,117,0.08)" stroke="rgba(29,158,117,0.2)" stroke-width="0.5"/>
+          <!-- stat cards row -->
+          <rect x="40" y="116" width="70" height="56" rx="6" fill="rgba(29,158,117,0.1)" stroke="rgba(29,158,117,0.25)" stroke-width="0.5"/>
+          <rect x="120" y="116" width="70" height="56" rx="6" fill="rgba(29,158,117,0.07)" stroke="rgba(29,158,117,0.2)" stroke-width="0.5"/>
+          <rect x="200" y="116" width="70" height="56" rx="6" fill="rgba(29,158,117,0.07)" stroke="rgba(29,158,117,0.2)" stroke-width="0.5"/>
+          <rect x="280" y="116" width="80" height="56" rx="6" fill="rgba(255,74,45,0.08)" stroke="rgba(255,74,45,0.2)" stroke-width="0.5"/>
+          <!-- chart area -->
+          <rect x="40" y="188" width="200" height="110" rx="6" fill="rgba(29,158,117,0.05)" stroke="rgba(29,158,117,0.15)" stroke-width="0.5"/>
+          <!-- bar chart bars -->
+          <rect x="60" y="260" width="14" height="28" rx="2" fill="rgba(29,158,117,0.3)"/>
+          <rect x="82" y="248" width="14" height="40" rx="2" fill="rgba(29,158,117,0.4)"/>
+          <rect x="104" y="238" width="14" height="50" rx="2" fill="rgba(29,158,117,0.5)"/>
+          <rect x="126" y="244" width="14" height="44" rx="2" fill="rgba(29,158,117,0.4)"/>
+          <rect x="148" y="230" width="14" height="58" rx="2" fill="rgba(82,245,160,0.6)"/>
+          <rect x="170" y="252" width="14" height="36" rx="2" fill="rgba(29,158,117,0.3)"/>
+          <rect x="192" y="242" width="14" height="46" rx="2" fill="rgba(29,158,117,0.35)"/>
+          <!-- table area -->
+          <rect x="250" y="188" width="110" height="110" rx="6" fill="rgba(29,158,117,0.04)" stroke="rgba(29,158,117,0.12)" stroke-width="0.5"/>
+          <line x1="250" y1="208" x2="360" y2="208" stroke="rgba(29,158,117,0.1)" stroke-width="0.5"/>
+          <line x1="250" y1="228" x2="360" y2="228" stroke="rgba(29,158,117,0.1)" stroke-width="0.5"/>
+          <line x1="250" y1="248" x2="360" y2="248" stroke="rgba(29,158,117,0.1)" stroke-width="0.5"/>
+          <line x1="250" y1="268" x2="360" y2="268" stroke="rgba(29,158,117,0.1)" stroke-width="0.5"/>
+          <!-- bottom row -->
+          <rect x="40" y="312" width="155" height="32" rx="6" fill="rgba(29,158,117,0.05)" stroke="rgba(29,158,117,0.12)" stroke-width="0.5"/>
+          <rect x="205" y="312" width="155" height="32" rx="6" fill="rgba(29,158,117,0.05)" stroke="rgba(29,158,117,0.12)" stroke-width="0.5"/>
+          <text x="56" y="57" fill="rgba(82,245,160,0.4)" font-size="9" font-family="'DM Sans',sans-serif" font-weight="500" letter-spacing="0.1em">VEHICLE INTELLIGENCE SYSTEM · REAL-TIME</text>
+          <text x="56" y="145" fill="rgba(82,245,160,0.7)" font-size="16" font-family="'DM Sans',sans-serif" font-weight="400">47</text>
+          <text x="136" y="145" fill="rgba(82,245,160,0.5)" font-size="16" font-family="'DM Sans',sans-serif" font-weight="400">8</text>
+          <text x="216" y="145" fill="rgba(82,245,160,0.5)" font-size="16" font-family="'DM Sans',sans-serif" font-weight="400">99%</text>
+        </svg>
+        <div class="vis-label">Real-time analytics dashboard · Vehicle tracking system</div>
+      </div>
+    </article>
+
+    <!-- PROJECT 3 — ARUVI -->
+    <article class="project-card reveal" onclick="window.open('https://behance.net/YOURUSERNAME','_blank')">
+      <div class="project-info">
+        <div class="project-meta">
+          <div class="project-num">03 <span></span></div>
+          <h3 class="project-title">ARUVI — Intelligent Content Summarizer</h3>
+          <p class="project-type">Product design · Web application</p>
+          <p class="project-desc">Designed user interfaces for an AI-powered content summarization tool. Focused on making complex AI outputs feel legible and trustworthy through deliberate visual hierarchy, spacing, and content structure.</p>
+          <div class="project-tags">
+            <span class="tag">Web UI</span>
+            <span class="tag">Content Design</span>
+            <span class="tag">Typography</span>
+            <span class="tag">UX Writing</span>
+          </div>
+        </div>
+        <a href="https://behance.net/YOURUSERNAME" target="_blank" class="project-cta">View case study →</a>
+      </div>
+      <div class="project-visual vis-3">
+        <svg class="art" viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- content/text design art -->
+          <rect x="50" y="45" width="300" height="52" rx="6" fill="rgba(186,117,23,0.1)" stroke="rgba(186,117,23,0.25)" stroke-width="0.5"/>
+          <text x="68" y="67" fill="rgba(239,159,39,0.6)" font-size="11" font-family="'DM Sans',sans-serif" font-weight="400" letter-spacing="0.03em">ARUVI · INTELLIGENT SUMMARIZER</text>
+          <text x="68" y="84" fill="rgba(239,159,39,0.35)" font-size="9" font-family="'DM Sans',sans-serif">Paste · Summarize · Discover</text>
+          <!-- input area -->
+          <rect x="50" y="113" width="300" height="80" rx="6" fill="rgba(186,117,23,0.06)" stroke="rgba(186,117,23,0.18)" stroke-width="0.5"/>
+          <line x1="68" y1="133" x2="332" y2="133" stroke="rgba(186,117,23,0.12)" stroke-width="0.5"/>
+          <line x1="68" y1="148" x2="280" y2="148" stroke="rgba(186,117,23,0.08)" stroke-width="0.5"/>
+          <line x1="68" y1="163" x2="310" y2="163" stroke="rgba(186,117,23,0.08)" stroke-width="0.5"/>
+          <line x1="68" y1="178" x2="248" y2="178" stroke="rgba(186,117,23,0.08)" stroke-width="0.5"/>
+          <!-- summarize btn -->
+          <rect x="50" y="207" width="300" height="38" rx="19" fill="rgba(255,74,45,0.15)" stroke="rgba(255,74,45,0.35)" stroke-width="0.5"/>
+          <text x="200" y="231" fill="rgba(255,74,45,0.7)" font-size="11" font-family="'DM Sans',sans-serif" font-weight="500" text-anchor="middle" letter-spacing="0.05em">SUMMARIZE →</text>
+          <!-- output cards -->
+          <rect x="50" y="260" width="140" height="80" rx="6" fill="rgba(186,117,23,0.08)" stroke="rgba(186,117,23,0.2)" stroke-width="0.5"/>
+          <rect x="204" y="260" width="146" height="80" rx="6" fill="rgba(186,117,23,0.05)" stroke="rgba(186,117,23,0.15)" stroke-width="0.5"/>
+          <text x="68" y="280" fill="rgba(239,159,39,0.5)" font-size="9" font-family="'DM Sans',sans-serif" letter-spacing="0.08em">SUMMARY</text>
+          <text x="220" y="280" fill="rgba(239,159,39,0.35)" font-size="9" font-family="'DM Sans',sans-serif" letter-spacing="0.08em">KEY POINTS</text>
+          <line x1="68" y1="295" x2="174" y2="295" stroke="rgba(186,117,23,0.1)" stroke-width="0.5"/>
+          <line x1="68" y1="308" x2="158" y2="308" stroke="rgba(186,117,23,0.1)" stroke-width="0.5"/>
+          <line x1="68" y1="321" x2="168" y2="321" stroke="rgba(186,117,23,0.1)" stroke-width="0.5"/>
+          <line x1="220" y1="295" x2="334" y2="295" stroke="rgba(186,117,23,0.08)" stroke-width="0.5"/>
+          <line x1="220" y1="308" x2="310" y2="308" stroke="rgba(186,117,23,0.08)" stroke-width="0.5"/>
+          <line x1="220" y1="321" x2="320" y2="321" stroke="rgba(186,117,23,0.08)" stroke-width="0.5"/>
+        </svg>
+        <div class="vis-label">Content summarization interface · AI-powered output design</div>
+      </div>
+    </article>
+
+    <!-- PROJECT 4 — BRAND IDENTITY (Coming Soon) -->
+    <article class="project-card reverse reveal" style="opacity:0.75">
+      <div class="project-info">
+        <div class="project-meta">
+          <div class="project-num">04 <span></span></div>
+          <h3 class="project-title">Brand Identity — Visual Design Showcase</h3>
+          <p class="project-type">Concept project · In progress</p>
+          <p class="project-desc">Full visual identity system for a fictional brand — logo design in three variants, color palette, typography system, social media templates, and real-world mockups. Demonstrating graphic design fundamentals.</p>
+          <div class="project-tags">
+            <span class="tag">Branding</span>
+            <span class="tag">Logo Design</span>
+            <span class="tag">Typography</span>
+            <span class="tag">Social Media</span>
+            <span class="tag">Photoshop</span>
+          </div>
+        </div>
+        <span class="project-cta" style="cursor:default;color:var(--muted)">Coming soon</span>
+      </div>
+      <div class="project-visual vis-4">
+        <svg class="art" viewBox="0 0 400 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- brand identity abstract art -->
+          <!-- large circle outline -->
+          <circle cx="200" cy="190" r="110" stroke="rgba(139,92,246,0.12)" stroke-width="0.5"/>
+          <circle cx="200" cy="190" r="80" stroke="rgba(139,92,246,0.09)" stroke-width="0.5"/>
+          <!-- logo construction marks -->
+          <line x1="90" y1="190" x2="310" y2="190" stroke="rgba(139,92,246,0.08)" stroke-width="0.5"/>
+          <line x1="200" y1="80" x2="200" y2="300" stroke="rgba(139,92,246,0.08)" stroke-width="0.5"/>
+          <!-- central logo mark suggestion -->
+          <polygon points="200,130 245,182 226,246 174,246 155,182" fill="rgba(139,92,246,0.12)" stroke="rgba(139,92,246,0.35)" stroke-width="0.75"/>
+          <polygon points="200,150 232,190 218,228 182,228 168,190" fill="rgba(255,74,45,0.08)" stroke="rgba(255,74,45,0.25)" stroke-width="0.5"/>
+          <!-- color swatches -->
+          <rect x="50" y="310" width="28" height="28" rx="4" fill="rgba(139,92,246,0.7)"/>
+          <rect x="86" y="310" width="28" height="28" rx="4" fill="rgba(255,74,45,0.7)"/>
+          <rect x="122" y="310" width="28" height="28" rx="4" fill="rgba(242,237,230,0.5)"/>
+          <rect x="158" y="310" width="28" height="28" rx="4" fill="rgba(139,92,246,0.15)" stroke="rgba(139,92,246,0.3)" stroke-width="0.5"/>
+          <!-- type specimen -->
+          <text x="210" y="326" fill="rgba(139,92,246,0.4)" font-size="28" font-family="Georgia,serif" font-style="italic" font-weight="300">Aa</text>
+          <text x="264" y="332" fill="rgba(139,92,246,0.25)" font-size="14" font-family="'DM Sans',sans-serif" font-weight="400" letter-spacing="0.1em">BRAND</text>
+          <text x="50" y="36" fill="rgba(139,92,246,0.35)" font-size="9" font-family="'DM Sans',sans-serif" font-weight="500" letter-spacing="0.1em">VISUAL IDENTITY · IN PROGRESS</text>
+          <!-- construction arcs -->
+          <path d="M 200 80 A 110 110 0 0 1 310 190" stroke="rgba(255,74,45,0.2)" stroke-width="0.75" fill="none" stroke-dasharray="4,4"/>
+        </svg>
+        <div class="vis-label">Brand identity system · Logo + type + color · In progress</div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ─── ABOUT ─── -->
+<section id="about">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">About <em>me</em></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-art"></div>
+        <!-- Replace YN below with your actual initials -->
+        <div class="about-initials">YN</div>
+        <div class="about-badge">
+          <div class="about-badge-label">Currently</div>
+          <div class="about-badge-val">Final year · Open to opportunities</div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <h2>Design thinker with a<br><em>technical edge.</em></h2>
+        <p>I'm a final-year engineering student who fell deep into the world of visual design — and never looked back. My background in electronics gave me a systems-level way of thinking that I now apply to how I design products and interfaces.</p>
+        <p>Over an 8-month AI internship at Parabola9, I went from rough wireframes to a production component system, learning that great design is about decisions: what to leave out, how to guide attention, and why white space is never wasted.</p>
+        <p>I'm fluent in Figma, Adobe Photoshop, and Canva — and comfortable enough with HTML, CSS, and JavaScript to speak the same language as engineers when handing off designs.</p>
+        <div class="about-stats">
+          <div class="stat">
+            <div class="stat-num">8<span>mo</span></div>
+            <div class="stat-label">AI product internship</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">3<span>+</span></div>
+            <div class="stat-label">Shipped projects</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">4<span>+</span></div>
+            <div class="stat-label">Design tools</div>
+          </div>
+          <div class="stat">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Iterations before done</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SKILLS ─── -->
+<section id="skills">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Skills &<em> tools</em></h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-block reveal">
+        <div class="skill-icon">✦</div>
+        <div class="skill-label">Design craft</div>
+        <div class="skill-name">Visual Design</div>
+        <div class="skill-items">UI/UX Design · Graphic Design · Branding & Identity · Logo Design · Typography · Color Theory · Layout Design</div>
+      </div>
+      <div class="skill-block reveal">
+        <div class="skill-icon">◈</div>
+        <div class="skill-label">Deliverables</div>
+        <div class="skill-name">Output Types</div>
+        <div class="skill-items">Mobile App UI · Web Dashboards · Design Systems · Social Media Creatives · Brand Guidelines · Wireframes · Prototypes</div>
+      </div>
+      <div class="skill-block reveal">
+        <div class="skill-icon">⬡</div>
+        <div class="skill-label">Design tools</div>
+        <div class="skill-name">Tools I Use</div>
+        <div class="skill-items">Figma · Adobe Photoshop · Canva · FigJam · shadcn/ui component library</div>
+      </div>
+      <div class="skill-block reveal">
+        <div class="skill-icon">⌘</div>
+        <div class="skill-label">Technical</div>
+        <div class="skill-name">I Can Build Too</div>
+        <div class="skill-items">HTML · CSS · JavaScript · React / Next.js · Python · FastAPI · OpenCV · AI-based Image Processing</div>
+      </div>
+    </div>
+
+    <div class="process-row">
+      <div class="process-step reveal">
+        <div class="process-step-num">01</div>
+        <div class="process-step-title">Understand</div>
+        <div class="process-step-desc">Research the problem, understand users, map the space before touching design tools.</div>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">02</div>
+        <div class="process-step-title">Explore</div>
+        <div class="process-step-desc">Sketch many directions fast. Wireframes, rough layouts, competing ideas side by side.</div>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">03</div>
+        <div class="process-step-title">Refine</div>
+        <div class="process-step-desc">Take the strongest direction. Iterate obsessively on hierarchy, spacing, and interaction.</div>
+      </div>
+      <div class="process-step reveal">
+        <div class="process-step-num">04</div>
+        <div class="process-step-title">Deliver</div>
+        <div class="process-step-desc">Ship clean design files, documented systems, and developer-ready handoff specs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-eyebrow">Let's work together</div>
+    <h2 class="contact-heading">Got a project<br>in <em>mind?</em></h2>
+    <p class="contact-sub">Open to internships, freelance projects, and full-time opportunities. Let's build something good.</p>
+    <div class="contact-links">
+      <!-- REPLACE with your actual email and URLs -->
+      <a href="mailto:your@email.com" class="contact-link primary">Send me an email →</a>
+      <a href="https://behance.net/YOURUSERNAME" target="_blank" class="contact-link">Behance ↗</a>
+      <a href="https://linkedin.com/in/YOURLINKEDIN" target="_blank" class="contact-link">LinkedIn ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <span class="footer-copy">© 2025 YOUR NAME — UI/UX & Visual Designer</span>
+  <nav class="footer-nav" aria-label="Footer navigation">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</footer>
+
+<script>
+// ─── NAV SCROLL STATE ───
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ─── REVEAL ON SCROLL ───
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ─── HERO NAME ANIMATION ───
+window.addEventListener('load', () => {
+  document.querySelector('.hero-name').style.opacity = '1';
+  document.querySelector('.hero-name').style.transform = 'none';
+});
+</script>
+</body>
+</html>
